@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'theme.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,8 +13,15 @@ button(b) {
   inp += b.toString();
 }
 
-class MyApp extends StatefulWidget {
+calculator() {
+  ContextModel cm = ContextModel();
+  Parser p = Parser();
+  Expression exp = p.parse(inp);
+  double eval = exp.evaluate(EvaluationType.REAL, cm);
+  inp = eval.toString();
+}
 
+class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -92,10 +100,17 @@ class _MyAppState extends State<MyApp> {
                                     width: 1, color: Colors.blue.shade200),
                                 borderRadius: BorderRadius.circular(5)),
                             child: Center(
-                              child: Text(
-                                'AC',
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.green.shade400),
+                              child: ElevatedButton(
+                                onPressed:(){
+                                  setState(() {
+                                    inp='';
+                                  });
+                                },
+                                child: Text(
+                                  'AC',
+                                  style: TextStyle(
+                                      fontSize: 30, color: Colors.green.shade400),
+                                ),
                               ),
                             ),
                           ),
@@ -150,13 +165,20 @@ class _MyAppState extends State<MyApp> {
                                     width: 1, color: Colors.blue.shade200),
                                 borderRadius: BorderRadius.circular(5)),
                             child: Center(
-                              child: Text('/',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      color: Colors.red.shade400)),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    button('/');
+                                  });
+                                },
+                                child: Text('/',
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.teal.shade400)),
+                              ),
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                     Row(
@@ -254,7 +276,7 @@ class _MyAppState extends State<MyApp> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                    button('X');
+                                    button('*');
                                   });
                                 },
                                 child: Text('x',
@@ -569,10 +591,17 @@ class _MyAppState extends State<MyApp> {
                                     width: 1, color: Colors.blue.shade200),
                                 borderRadius: BorderRadius.circular(5)),
                             child: Center(
-                              child: Text('=',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      color: Colors.red.shade400)),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    calculator();
+                                  });
+                                },
+                                child: Text('=',
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.red.shade400)),
+                              ),
                             ),
                           ),
                         ),

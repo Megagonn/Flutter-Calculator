@@ -21,6 +21,8 @@ calculator() {
   inp = eval.toString();
 }
 
+Color aa = Colors.white;
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -50,34 +52,7 @@ class _MyAppState extends State<MyApp> {
                 // Expanded(
                 //display unit
                 // child:
-                Container(
-                  padding: EdgeInsets.all(10),
-                  width: 600,
-                  height: 230,
-                  decoration: BoxDecoration(
-                    // border: Border.all(
-                    //   color: Colors.lightGreen,
-                    //   width: 5,
-                    //   style: BorderStyle.solid,
-                    // ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          inp,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 50),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // ),
-                ),
+                Display(),
                 Expanded(
                     //key pads
                     child: Container(
@@ -107,6 +82,10 @@ class _MyAppState extends State<MyApp> {
                                       inp = '';
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text(
                                     'C',
                                     style: TextStyle(
@@ -172,6 +151,10 @@ class _MyAppState extends State<MyApp> {
                                       button('/');
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('/',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -202,6 +185,10 @@ class _MyAppState extends State<MyApp> {
                                       button(7);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('7',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -228,6 +215,10 @@ class _MyAppState extends State<MyApp> {
                                       button(8);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('8',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -254,6 +245,10 @@ class _MyAppState extends State<MyApp> {
                                       button(9);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('9',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -280,6 +275,10 @@ class _MyAppState extends State<MyApp> {
                                       button('*');
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('x',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -310,6 +309,10 @@ class _MyAppState extends State<MyApp> {
                                       button(4);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('4',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -336,6 +339,10 @@ class _MyAppState extends State<MyApp> {
                                       button(5);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('5',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -362,6 +369,10 @@ class _MyAppState extends State<MyApp> {
                                       button(6);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('6',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -388,6 +399,10 @@ class _MyAppState extends State<MyApp> {
                                       button('-');
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('-',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -418,6 +433,10 @@ class _MyAppState extends State<MyApp> {
                                       button(1);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('1',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -444,6 +463,10 @@ class _MyAppState extends State<MyApp> {
                                       button(2);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('2',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -470,6 +493,10 @@ class _MyAppState extends State<MyApp> {
                                       button(3);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('3',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -496,6 +523,10 @@ class _MyAppState extends State<MyApp> {
                                       button('+');
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('+',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -547,6 +578,10 @@ class _MyAppState extends State<MyApp> {
                                       button(0);
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('0',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -573,6 +608,10 @@ class _MyAppState extends State<MyApp> {
                                       button('.');
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('.',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -599,6 +638,10 @@ class _MyAppState extends State<MyApp> {
                                       calculator();
                                     });
                                   },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.white)),
                                   child: Text('=',
                                       style: TextStyle(
                                           fontSize: 30,
@@ -618,5 +661,46 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+}
+
+class Display extends StatefulWidget {
+  const Display({ Key? key }) : super(key: key);
+
+  @override
+  _DisplayState createState() => _DisplayState();
+}
+
+class _DisplayState extends State<Display> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+                  padding: EdgeInsets.all(10),
+                  width: 600,
+                  height: 230,
+                  decoration: BoxDecoration(
+                    // border: Border.all(
+                    //   color: Colors.lightGreen,
+                    //   width: 5,
+                    //   style: BorderStyle.solid,
+                    // ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          inp,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 50),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // ),
+                );
   }
 }

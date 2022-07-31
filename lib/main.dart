@@ -1,11 +1,19 @@
 // import 'dart:io';
 
+import 'package:calculator/keypad.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'theme.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 void main() {
-  runApp(MyApp());
+  // Provider(create: (){});
+  runApp(ChangeNotifierProvider(
+    child: MyApp(),
+    create: (_) {
+      KeyPad(label: '',);
+    },
+  ));
 }
 
 dynamic inp = '';
@@ -59,8 +67,6 @@ class _MyAppState extends State<MyApp> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                // dayclr = Colors.blue.shade600;
-                                // nightclr = Colors.grey.shade400;
                                 theme = !theme;
                               });
                             },
@@ -68,15 +74,6 @@ class _MyAppState extends State<MyApp> {
                                 child: Icon(Icons.wb_sunny_rounded,
                                     color: dayclr)),
                           ),
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     setState(() {
-                          //       dayclr = Colors.grey.shade400;
-                          //       nightclr = Colors.blue.shade600;
-                          //     });
-                          //   },
-                          //   child: Icon(Icons.nightlight_round_outlined, color: nightclr),
-                          // )
                         ],
                       ),
                     )),
@@ -98,7 +95,7 @@ class _MyAppState extends State<MyApp> {
                           Expanded(
                             child: Container(
                               // color: Colors.amber.shade200,
-                              width: 50,
+                              width: 100,
                               height: 50,
                               padding: EdgeInsets.all(5),
                               margin: EdgeInsets.all(10),
@@ -164,36 +161,6 @@ class _MyAppState extends State<MyApp> {
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                              // color: Colors.amber.shade200,
-                              width: 50,
-                              height: 50,
-                              padding: EdgeInsets.all(5),
-                              margin: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1, color: Colors.blue.shade200),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      button('/');
-                                    });
-                                  },
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateColor.resolveWith(
-                                              (states) => Colors.white)),
-                                  child: Text('/',
-                                      style: TextStyle(
-                                          fontSize: 30,
-                                          color: Colors.teal.shade400)),
-                                ),
-                              ),
-                            ),
-                          )
                         ],
                       ),
                       Row(

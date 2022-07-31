@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Themey extends StatefulWidget {
   @override
+  // Color dayclr = Colors.blue.shade600;
   _ThemeyState createState() => _ThemeyState();
 }
 
@@ -12,8 +13,7 @@ class Themey extends StatefulWidget {
 
 class _ThemeyState extends State<Themey> {
   // Color mycolor = Colors.white;
-  Color dayclr = Colors.blue.shade600;
-  Color nightclr = Colors.grey.shade600;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -24,30 +24,7 @@ class _ThemeyState extends State<Themey> {
           color: Colors.grey.shade200,
           width: 80,
           padding: EdgeInsets.all(5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    dayclr = Colors.blue.shade600;
-                    nightclr = Colors.grey.shade400;
-                  });
-                },
-                child: Icon(Icons.wb_sunny_rounded, color: dayclr),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    dayclr = Colors.grey.shade400;
-                    nightclr = Colors.blue.shade600;
-                  });
-                },
-                child: Icon(Icons.nightlight_round_outlined, color: nightclr),
-              )
-            ],
-          ),
+          child: Text('data')
         ),
       ),
     );

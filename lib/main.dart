@@ -29,9 +29,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool theme = true;
+  Color dayclr = Colors.blue.shade600;
+  Color nightclr = Colors.grey.shade600;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: theme ? ThemeData.dark() : ThemeData.light(),
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
@@ -41,13 +45,40 @@ class _MyAppState extends State<MyApp> {
           ),
           // backgroundColor: mycolor,
           body: Container(
+            // color: dayclr,
             child: Column(
               children: [
                 Container(
                     // Icons container
                     padding: EdgeInsets.all(8),
                     child: Container(
-                      child: Themey(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                // dayclr = Colors.blue.shade600;
+                                // nightclr = Colors.grey.shade400;
+                                theme = !theme;
+                              });
+                            },
+                            child: CircleAvatar(
+                                child: Icon(Icons.wb_sunny_rounded,
+                                    color: dayclr)),
+                          ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     setState(() {
+                          //       dayclr = Colors.grey.shade400;
+                          //       nightclr = Colors.blue.shade600;
+                          //     });
+                          //   },
+                          //   child: Icon(Icons.nightlight_round_outlined, color: nightclr),
+                          // )
+                        ],
+                      ),
                     )),
                 // Expanded(
                 //display unit
@@ -87,7 +118,7 @@ class _MyAppState extends State<MyApp> {
                                           MaterialStateColor.resolveWith(
                                               (states) => Colors.white)),
                                   child: Text(
-                                    'C',
+                                    'AC',
                                     style: TextStyle(
                                         fontSize: 30, color: Colors.black),
                                   ),
@@ -665,7 +696,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 class Display extends StatefulWidget {
-  const Display({ Key? key }) : super(key: key);
+  const Display({Key? key}) : super(key: key);
 
   @override
   _DisplayState createState() => _DisplayState();
@@ -675,32 +706,32 @@ class _DisplayState extends State<Display> {
   @override
   Widget build(BuildContext context) {
     return Container(
-                  padding: EdgeInsets.all(10),
-                  width: 600,
-                  height: 230,
-                  decoration: BoxDecoration(
-                    // border: Border.all(
-                    //   color: Colors.lightGreen,
-                    //   width: 5,
-                    //   style: BorderStyle.solid,
-                    // ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          inp,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 50),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // ),
-                );
+      padding: EdgeInsets.all(10),
+      width: 600,
+      height: 230,
+      decoration: BoxDecoration(
+        // border: Border.all(
+        //   color: Colors.lightGreen,
+        //   width: 5,
+        //   style: BorderStyle.solid,
+        // ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            Text(
+              inp,
+              textAlign: TextAlign.right,
+              style: TextStyle(fontSize: 50),
+            ),
+          ],
+        ),
+      ),
+      // ),
+    );
   }
 }

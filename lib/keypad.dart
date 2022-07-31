@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 
@@ -12,7 +13,6 @@ class KeyPad extends StatefulWidget {
 dynamic inp = '';
 
 class _KeyPadState extends State<KeyPad> with ChangeNotifier {
-
   @override
   Widget build(BuildContext context) {
     String label = widget.label;
@@ -31,17 +31,26 @@ class _KeyPadState extends State<KeyPad> with ChangeNotifier {
             onPressed: () {
               setState(() {
                 inp += label.toString();
-                notifyListeners();
+                // notifyListeners();
               });
             },
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStateColor.resolveWith((states) => Colors.white)),
-            child: Text('/',
+            child: Text(label,
                 style: TextStyle(fontSize: 30, color: Colors.teal.shade400)),
           ),
         ),
       ),
     );
+  }
+}
+
+class Input with ChangeNotifier, DiagnosticableTreeMixin {
+  String get input => inp;
+  String label = '';
+  void notify() {
+    label = inp;
+    notifyListeners();
   }
 }

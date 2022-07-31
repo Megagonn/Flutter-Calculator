@@ -11,7 +11,9 @@ void main() {
   runApp(ChangeNotifierProvider(
     child: MyApp(),
     create: (_) {
-      KeyPad(label: '',);
+      KeyPad(
+        label: '',
+      );
     },
   ));
 }
@@ -42,6 +44,10 @@ class _MyAppState extends State<MyApp> {
   Color nightclr = Colors.grey.shade600;
   @override
   Widget build(BuildContext context) {
+    var prov = Provider.of<KeyPad>(
+      context,
+      listen: true,
+    );
     return MaterialApp(
       theme: theme ? ThemeData.dark() : ThemeData.light(),
       debugShowCheckedModeBanner: false,
@@ -672,6 +678,7 @@ class Display extends StatefulWidget {
 class _DisplayState extends State<Display> {
   @override
   Widget build(BuildContext context) {
+    var prov = Provider.of<KeyPad>(context, listen: true);
     return Container(
       padding: EdgeInsets.all(10),
       width: 600,
@@ -691,7 +698,7 @@ class _DisplayState extends State<Display> {
           textBaseline: TextBaseline.alphabetic,
           children: [
             Text(
-              inp,
+              prov.label,
               textAlign: TextAlign.right,
               style: TextStyle(fontSize: 50),
             ),

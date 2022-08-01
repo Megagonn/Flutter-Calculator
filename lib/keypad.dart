@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 import 'package:get_it/get_it.dart';
+
 class KeyPad extends StatefulWidget {
-  const KeyPad({Key? key, required this.label}) : super(key: key);
+  const KeyPad({Key? key, required this.label, required this.func})
+      : super(key: key);
   final String label;
+  final void Function() func;
 
   @override
   State<KeyPad> createState() => _KeyPadState();
 }
 
-dynamic inp = '';
+// dynamic inp = '';
 
 class _KeyPadState extends State<KeyPad> with ChangeNotifier {
-  
   @override
   Widget build(BuildContext context) {
     String label = widget.label;
@@ -29,15 +31,14 @@ class _KeyPadState extends State<KeyPad> with ChangeNotifier {
         child: Center(
           child: ElevatedButton(
             onPressed: () {
-              setState(() {
-                inp += label.toString();
-                // notifyListeners();
-              });
-              Input().notify(inp);
+              Input().notify(label);
+              // setState(() {});
+              widget.func;
+              // notifyListeners();
             },
             style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateColor.resolveWith((states) => Color.fromARGB(255, 51, 47, 47))),
+                backgroundColor: MaterialStateColor.resolveWith(
+                    (states) => Color.fromARGB(255, 51, 47, 47))),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(label,
@@ -50,14 +51,14 @@ class _KeyPadState extends State<KeyPad> with ChangeNotifier {
   }
 }
 
-  
-class Input{
-  String label = '';
+String label = '';
+
+class Input with ChangeNotifier {
   String get input => label;
   notify(text) {
     label += text;
-    print(input);
-    // notifyListeners();
-    return input;
+    // print(input);
+    notifyListeners();
+    // return input;
   }
 }

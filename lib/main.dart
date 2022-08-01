@@ -9,29 +9,29 @@ import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   // Provider(create: (){});
-    GetIt.I.registerSingleton<Input>(Input());
+  GetIt.I.registerSingleton<Input>(Input());
   runApp(
-    // MultiProvider(
-    //   providers: [
-    //     ChangeNotifierProvider(create: (_) => Input()),
-    //   ],
-    //   child:
-    MyApp(),
-    // ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Input()),
+        // ChangeNotifierProvider(create: (_) => KeyPad(label: '',)),
+      ],
+      child: MyApp(),
+    ),
   );
 }
 
 // dynamic inp = '';
-button(b) {
-  inp += b.toString();
-}
+// button(b) {
+//   inp += b.toString();
+// }
 
 calculator() {
   ContextModel cm = ContextModel();
   Parser p = Parser();
-  Expression exp = p.parse(inp);
-  double eval = exp.evaluate(EvaluationType.REAL, cm);
-  inp = eval.toString();
+  // Expression exp = p.parse(inp);
+  // double eval = exp.evaluate(EvaluationType.REAL, cm);
+  // inp = eval.toString();
 }
 
 Color aa = Colors.white;
@@ -45,11 +45,19 @@ class _MyAppState extends State<MyApp> {
   bool theme = true;
   Color dayclr = Colors.blue.shade600;
   Color nightclr = Colors.grey.shade600;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.debugCheckInvalidValueType;
+    ProviderBinding.debugInstance;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // var prov = Provider.of<KeyPad>(
-    //   context,
-    //   listen: true,
+    // var prov = context.read<KeyPad>(
+    //   ,
+
     // );
     return MaterialApp(
       theme: theme ? ThemeData.dark() : ThemeData.light(),
@@ -89,14 +97,50 @@ class _MyAppState extends State<MyApp> {
                 // Expanded(
                 //display unit
                 // child:
-                Display(),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  width: 600,
+                  height: 230,
+                  decoration: BoxDecoration(
+                    // border: Border.all(
+                    //   color: Colors.lightGreen,
+                    //   width: 5,
+                    //   style: BorderStyle.solid,
+                    // ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          Provider.of<Input>(context, listen: true).input,
+                          // context.watch()<Input>().input,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontSize: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 Expanded(
                     //key pads
                     child: Container(
-                      padding: const EdgeInsets.only(top: 40, left: 5, right: 5,),
+                  padding: const EdgeInsets.only(
+                    top: 40,
+                    left: 5,
+                    right: 5,
+                  ),
                   decoration: BoxDecoration(
                     // border: Border(bottom: BorderSide.none),
-                    borderRadius: BorderRadius.only(topLeft:Radius.circular(20), topRight: Radius.circular(20),),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
                     color: theme ? Colors.grey.shade800 : Colors.white,
                   ),
                   child: Column(
@@ -118,7 +162,7 @@ class _MyAppState extends State<MyApp> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
-                                      inp = '';
+                                      // inp = '';
                                     });
                                   },
                                   style: ButtonStyle(
@@ -172,16 +216,21 @@ class _MyAppState extends State<MyApp> {
                               ),
                             ),
                           ),
-                          
-                          KeyPad(label: '/'),
+                          KeyPad(
+                            label: '/',
+                            func: () {},
+                          ),
                         ],
                       ),
                       Row(
                         children: [
-                          KeyPad(label: '7'),
-                          KeyPad(label: '8'),
-                          KeyPad(label: '9'),
-                          KeyPad(label: '*'),
+                          KeyPad(label: '7', func:(){}),
+                          KeyPad(label: '8', func:(){}),
+                          KeyPad(label: '9', func:(){}),
+                          KeyPad(label: '*', func:(){}),
+                          // KeyPad(label: '8'),
+                          // KeyPad(label: '9'),
+                          // KeyPad(label: '*'),
                           // Expanded(
                           //   child: Container(
                           //     // color: Colors.amber.shade200,
@@ -276,10 +325,10 @@ class _MyAppState extends State<MyApp> {
                       ),
                       Row(
                         children: [
-                          KeyPad(label: '4'),
-                          KeyPad(label: '5'),
-                          KeyPad(label: '6'),
-                          KeyPad(label: '-'),
+                          // KeyPad(label: '4'),
+                          // KeyPad(label: '5'),
+                          // KeyPad(label: '6'),
+                          // KeyPad(label: '-'),
                           // Expanded(
                           //   child: Container(
                           //     // color: Colors.amber.shade200,
@@ -404,10 +453,10 @@ class _MyAppState extends State<MyApp> {
                       ),
                       Row(
                         children: [
-                          KeyPad(label: '1'),
-                          KeyPad(label: '2'),
-                          KeyPad(label: '3'),
-                          KeyPad(label: '+'),
+                          // KeyPad(label: '1'),
+                          // KeyPad(label: '2'),
+                          // KeyPad(label: '3'),
+                          // KeyPad(label: '+'),
                           // Expanded(
                           //   child: Container(
                           //     // color: Colors.amber.shade200,
@@ -553,9 +602,9 @@ class _MyAppState extends State<MyApp> {
                           //     ),
                           //   ),
                           // ),
-                          KeyPad(label: '<-'),
-                          KeyPad(label: '0'),
-                          KeyPad(label: '.'),
+                          // KeyPad(label: '<-'),
+                          // KeyPad(label: '0'),
+                          // KeyPad(label: '.'),
                           // Expanded(
                           //   child: Container(
                           //     // color: Colors.amber.shade200,
@@ -670,8 +719,8 @@ class Display extends StatefulWidget {
 class _DisplayState extends State<Display> {
   @override
   Widget build(BuildContext context) {
-    // var prov = context.watch<Input>().label;
-    print(GetIt.I<Input>().input);
+    var prov = context.read<Input>().input;
+    print(prov);
     return Container(
       padding: EdgeInsets.all(10),
       width: 600,
@@ -691,9 +740,11 @@ class _DisplayState extends State<Display> {
           textBaseline: TextBaseline.alphabetic,
           children: [
             Text(
-              GetIt.I.get<Input>().input,
+              prov,
               textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 50,),
+              style: TextStyle(
+                fontSize: 50,
+              ),
             ),
           ],
         ),

@@ -63,16 +63,18 @@ class _MyAppState extends State<MyApp> {
                               });
                             },
                             child: CircleAvatar(
-                              backgroundColor: !theme ? Color.fromARGB(255, 51, 47, 47) : null,
-                                child: Icon(Icons.wb_sunny_rounded,
-                                    color: theme ? dayclr : nightclr)),
+                              backgroundColor: !theme
+                                  ? Color.fromARGB(255, 51, 47, 47)
+                                  : null,
+                              child: Icon(
+                                Icons.wb_sunny_rounded,
+                                color: theme ? dayclr : nightclr,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     )),
-                // Expanded(
-                //display unit
-                // child:
                 _display(),
                 Expanded(
                     //key pads
@@ -88,7 +90,9 @@ class _MyAppState extends State<MyApp> {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
-                    color: theme ? Colors.grey.shade800 : Color.fromARGB(255, 194, 180, 180),
+                    color: theme
+                        ? Colors.grey.shade800
+                        : Color.fromARGB(255, 194, 180, 180),
                   ),
                   child: Column(
                     children: [
@@ -118,7 +122,8 @@ class _MyAppState extends State<MyApp> {
                                           .resolveWith((states) =>
                                               Color.fromARGB(255, 51, 47, 47))),
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 8),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 18, horizontal: 8),
                                     child: Text('AC',
                                         style: TextStyle(
                                             fontSize: 20, color: Colors.white)),
@@ -130,24 +135,13 @@ class _MyAppState extends State<MyApp> {
                           _buildPad('%'),
                           Expanded(
                             child: Container(
-                              // color: Colors.amber.shade200,
-                              // width: 50,
-                              // height: 50,
                               padding: EdgeInsets.all(5),
                               margin: EdgeInsets.symmetric(vertical: 5),
                               decoration: BoxDecoration(
-                                  // border: Border.all(
-                                  //     width: 1, color: Colors.blue.shade200),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Center(
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      // var del = _controller.text.split('').removeLast().toString();
-                                      
-
-                                    });
-                                  },
+                                  onPressed: () {},
                                   style: ButtonStyle(
                                       backgroundColor: MaterialStateColor
                                           .resolveWith((states) =>
@@ -198,14 +192,9 @@ class _MyAppState extends State<MyApp> {
                           _buildPad('.'),
                           Expanded(
                             child: Container(
-                              // color: Colors.amber.shade200,
-                              // width: 50,
-                              // height: 50,
                               padding: EdgeInsets.all(5),
                               margin: EdgeInsets.symmetric(vertical: 5),
                               decoration: BoxDecoration(
-                                  // border: Border.all(
-                                  //     width: 1, color: Colors.blue.shade200),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Center(
                                 child: ElevatedButton(
@@ -249,11 +238,6 @@ class _MyAppState extends State<MyApp> {
       width: 600,
       height: 230,
       decoration: BoxDecoration(
-        // border: Border.all(
-        //   color: Colors.lightGreen,
-        //   width: 5,
-        //   style: BorderStyle.solid,
-        // ),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
@@ -262,14 +246,6 @@ class _MyAppState extends State<MyApp> {
           crossAxisAlignment: CrossAxisAlignment.end,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            // Text(
-            //   inp,
-            //   // context.watch()<Input>().input,
-            //   textAlign: TextAlign.right,
-            //   style: const TextStyle(
-            //     fontSize: 50,
-            //   ),
-            // ),
             TextField(
               controller: _controller,
               keyboardType: TextInputType.none,
@@ -296,31 +272,21 @@ class _MyAppState extends State<MyApp> {
   _buildPad(label, {fontSize, vPadding, hPadding}) {
     return Expanded(
       child: Container(
-        // color: Colors.amber.shade200,
-        // width: 50,
-        // height: 50,
         padding: EdgeInsets.all(5),
         margin: EdgeInsets.symmetric(vertical: 5),
-        decoration: BoxDecoration(
-            // border: Border.all(width: 1, color: Colors.blue.shade200),
-            borderRadius: BorderRadius.circular(5)),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
         child: Center(
           child: ElevatedButton(
             onPressed: () {
-              // Input().notify(label);
               setState(() {
                 if (!removeInput) {
                   _controller.text += label;
-                  // _controller.text = inp;
                 } else {
                   _controller.text = answer.toString() + label;
-                  //  _controller.text = inp;
                   removeInput = false;
                   answer = 0;
                 }
               });
-              // widget.func;
-              // notifyListeners();
             },
             style: ButtonStyle(
                 backgroundColor: MaterialStateColor.resolveWith(

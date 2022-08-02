@@ -2,42 +2,44 @@
 
 import 'package:calculator/keypad.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 import 'theme.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
   // Provider(create: (){});
-  GetIt.I.registerSingleton<Input>(Input());
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => Input()),
-        // ChangeNotifierProvider(create: (_) => KeyPad(label: '',)),
-      ],
-      child: MyApp(),
-    ),
-  );
+  // GetIt.I.registerSingleton<Input>(Input());
+  // runApp(
+  //   MultiProvider(
+  //     providers: [
+  //       ChangeNotifierProvider(create: (_) => Input()),
+  //     ],
+  //     child:
+  runApp(const MyApp());
+  //   ),
+  // );
 }
 
-// dynamic inp = '';
-// button(b) {
-//   inp += b.toString();
-// }
+dynamic inp = '0';
+button(b) {
+  inp += b.toString();
+}
 
 calculator() {
   ContextModel cm = ContextModel();
   Parser p = Parser();
-  // Expression exp = p.parse(inp);
-  // double eval = exp.evaluate(EvaluationType.REAL, cm);
-  // inp = eval.toString();
+  Expression exp = p.parse(inp);
+  double eval = exp.evaluate(EvaluationType.REAL, cm);
+  inp = eval.toString();
 }
 
 Color aa = Colors.white;
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
+  // ignore: library_private_types_in_public_api
   _MyAppState createState() => _MyAppState();
 }
 
@@ -47,18 +49,7 @@ class _MyAppState extends State<MyApp> {
   Color nightclr = Colors.grey.shade600;
 
   @override
-  void initState() {
-    super.initState();
-    Provider.debugCheckInvalidValueType;
-    ProviderBinding.debugInstance;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // var prov = context.read<KeyPad>(
-    //   ,
-
-    // );
     return MaterialApp(
       theme: theme ? ThemeData.dark() : ThemeData.light(),
       debugShowCheckedModeBanner: false,
@@ -66,7 +57,8 @@ class _MyAppState extends State<MyApp> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.teal,
-            title: Text('Calculator', style: TextStyle(color: Colors.white)),
+            title:
+                const Text('Calculator', style: TextStyle(color: Colors.white)),
           ),
           // backgroundColor: mycolor,
           body: Container(
@@ -75,7 +67,7 @@ class _MyAppState extends State<MyApp> {
               children: [
                 Container(
                     // Icons container
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -97,36 +89,7 @@ class _MyAppState extends State<MyApp> {
                 // Expanded(
                 //display unit
                 // child:
-                Container(
-                  padding: EdgeInsets.all(10),
-                  width: 600,
-                  height: 230,
-                  decoration: BoxDecoration(
-                    // border: Border.all(
-                    //   color: Colors.lightGreen,
-                    //   width: 5,
-                    //   style: BorderStyle.solid,
-                    // ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          Provider.of<Input>(context, listen: true).input,
-                          // context.watch()<Input>().input,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            fontSize: 50,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _display(),
                 Expanded(
                     //key pads
                     child: Container(
@@ -137,7 +100,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   decoration: BoxDecoration(
                     // border: Border(bottom: BorderSide.none),
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
@@ -152,8 +115,8 @@ class _MyAppState extends State<MyApp> {
                               // color: Colors.amber.shade200,
                               width: 100,
                               height: 50,
-                              padding: EdgeInsets.all(5),
-                              margin: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(5),
+                              margin: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       width: 1, color: Colors.blue.shade200),
@@ -162,14 +125,14 @@ class _MyAppState extends State<MyApp> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
-                                      // inp = '';
+                                      inp = '';
                                     });
                                   },
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateColor.resolveWith(
                                               (states) => Colors.white)),
-                                  child: Text(
+                                  child: const Text(
                                     'AC',
                                     style: TextStyle(
                                         fontSize: 30, color: Colors.black),
@@ -183,8 +146,8 @@ class _MyAppState extends State<MyApp> {
                               // color: Colors.amber.shade200,
                               width: 50,
                               height: 50,
-                              padding: EdgeInsets.all(5),
-                              margin: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(5),
+                              margin: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       width: 1, color: Colors.blue.shade200),
@@ -202,8 +165,8 @@ class _MyAppState extends State<MyApp> {
                               // color: Colors.amber.shade200,
                               width: 50,
                               height: 50,
-                              padding: EdgeInsets.all(5),
-                              margin: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(5),
+                              margin: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       width: 1, color: Colors.blue.shade200),
@@ -216,465 +179,48 @@ class _MyAppState extends State<MyApp> {
                               ),
                             ),
                           ),
-                          KeyPad(
-                            label: '/',
-                            func: () {},
-                          ),
+                          _buildPad('/'),
                         ],
                       ),
                       Row(
                         children: [
-                          KeyPad(label: '7', func:(){}),
-                          KeyPad(label: '8', func:(){}),
-                          KeyPad(label: '9', func:(){}),
-                          KeyPad(label: '*', func:(){}),
-                          // KeyPad(label: '8'),
-                          // KeyPad(label: '9'),
-                          // KeyPad(label: '*'),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button(8);
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('8',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button(9);
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('9',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button('*');
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('x',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          _buildPad('7'),
+                          _buildPad('8'),
+                          _buildPad('9'),
+                          _buildPad('*'),
                         ],
                       ),
                       Row(
                         children: [
-                          // KeyPad(label: '4'),
-                          // KeyPad(label: '5'),
-                          // KeyPad(label: '6'),
-                          // KeyPad(label: '-'),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button(4);
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('4',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button(5);
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('5',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button(6);
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('6',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button('-');
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('-',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          _buildPad('4'),
+                          _buildPad('5'),
+                          _buildPad('6'),
+                          _buildPad('-'),
                         ],
                       ),
                       Row(
                         children: [
-                          // KeyPad(label: '1'),
-                          // KeyPad(label: '2'),
-                          // KeyPad(label: '3'),
-                          // KeyPad(label: '+'),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button(1);
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('1',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button(2);
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('2',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button(3);
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('3',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button('+');
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('+',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          _buildPad('1'),
+                          _buildPad('2'),
+                          _buildPad('3'),
+                          _buildPad('+'),
                         ],
                       ),
                       Row(
                         children: [
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: Text(
-                          //         '<-',
-                          //         style: TextStyle(
-                          //             fontSize: 30,
-                          //             color: Colors.teal.shade400),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // KeyPad(label: '<-'),
-                          // KeyPad(label: '0'),
-                          // KeyPad(label: '.'),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button(0);
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('0',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   child: Container(
-                          //     // color: Colors.amber.shade200,
-                          //     width: 50,
-                          //     height: 50,
-                          //     padding: EdgeInsets.all(5),
-                          //     margin: EdgeInsets.all(10),
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.blue.shade200),
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: Center(
-                          //       child: ElevatedButton(
-                          //         onPressed: () {
-                          //           setState(() {
-                          //             button('.');
-                          //           });
-                          //         },
-                          //         style: ButtonStyle(
-                          //             backgroundColor:
-                          //                 MaterialStateColor.resolveWith(
-                          //                     (states) => Colors.white)),
-                          //         child: Text('.',
-                          //             style: TextStyle(
-                          //                 fontSize: 30,
-                          //                 color: Colors.teal.shade400)),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          _buildPad('00', fontSize: 20),
+                          _buildPad('.'),
+                          _buildPad('0'),
                           Expanded(
                             child: Container(
                               // color: Colors.amber.shade200,
-                              width: 50,
-                              height: 50,
+                              // width: 50,
+                              // height: 50,
                               padding: EdgeInsets.all(5),
-                              margin: EdgeInsets.all(10),
+                              margin: EdgeInsets.symmetric(vertical: 5),
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1, color: Colors.blue.shade200),
+                                  // border: Border.all(
+                                  //     width: 1, color: Colors.blue.shade200),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Center(
                                 child: ElevatedButton(
@@ -684,13 +230,16 @@ class _MyAppState extends State<MyApp> {
                                     });
                                   },
                                   style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateColor.resolveWith(
-                                              (states) => Colors.white)),
-                                  child: Text('=',
-                                      style: TextStyle(
-                                          fontSize: 30,
-                                          color: Colors.red.shade900)),
+                                      backgroundColor: MaterialStateColor
+                                          .resolveWith((states) =>
+                                              Color.fromARGB(255, 51, 47, 47))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Text('=',
+                                        style: TextStyle(
+                                            fontSize: 30,
+                                            color: Colors.red.shade900)),
+                                  ),
                                 ),
                               ),
                             ),
@@ -701,6 +250,75 @@ class _MyAppState extends State<MyApp> {
                   ),
                 )),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _display() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      width: 600,
+      height: 230,
+      decoration: BoxDecoration(
+        // border: Border.all(
+        //   color: Colors.lightGreen,
+        //   width: 5,
+        //   style: BorderStyle.solid,
+        // ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            Text(
+              inp,
+              // context.watch()<Input>().input,
+              textAlign: TextAlign.right,
+              style: const TextStyle(
+                fontSize: 50,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildPad(label, {fontSize}) {
+    return Expanded(
+      child: Container(
+        // color: Colors.amber.shade200,
+        // width: 50,
+        // height: 50,
+        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+            // border: Border.all(width: 1, color: Colors.blue.shade200),
+            borderRadius: BorderRadius.circular(5)),
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              // Input().notify(label);
+              setState(() {
+                inp += label;
+              });
+              // widget.func;
+              // notifyListeners();
+            },
+            style: ButtonStyle(
+                backgroundColor: MaterialStateColor.resolveWith(
+                    (states) => Color.fromARGB(255, 51, 47, 47))),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(label,
+                  style: TextStyle(
+                      fontSize: fontSize ?? 30, color: Colors.teal.shade400)),
             ),
           ),
         ),
@@ -719,10 +337,8 @@ class Display extends StatefulWidget {
 class _DisplayState extends State<Display> {
   @override
   Widget build(BuildContext context) {
-    var prov = context.read<Input>().input;
-    print(prov);
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       width: 600,
       height: 230,
       decoration: BoxDecoration(
@@ -740,16 +356,15 @@ class _DisplayState extends State<Display> {
           textBaseline: TextBaseline.alphabetic,
           children: [
             Text(
-              prov,
+              inp,
               textAlign: TextAlign.right,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 50,
               ),
             ),
           ],
         ),
       ),
-      // ),
     );
   }
 }

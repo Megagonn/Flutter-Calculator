@@ -1,16 +1,15 @@
-# calculator
+# Calculator
 
-A new Flutter project.
+A simple arithmetic calculator built with Flutter.
+Features include:
+- Addition
+- Subtraction
+- Division
+- Multiplication
+- Modulus 
+It also have dark and light mode feature.
 
-## Getting Started
+#App APK
+The app APK can be found in the root folder: /app-release.apk
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Thanks for using.

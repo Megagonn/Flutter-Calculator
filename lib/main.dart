@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
-                    color: theme ? Colors.grey.shade800 : Colors.white,
+                    color: theme ? Colors.grey.shade800 : Color.fromARGB(255, 194, 180, 180),
                   ),
                   child: Column(
                     children: [
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
                                           .resolveWith((states) =>
                                               Color.fromARGB(255, 51, 47, 47))),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(12),
+                                    padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 8),
                                     child: Text('AC',
                                         style: TextStyle(
                                             fontSize: 20, color: Colors.white)),
@@ -125,25 +125,7 @@ class _MyAppState extends State<MyApp> {
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                              // color: Colors.amber.shade200,
-                              width: 50,
-                              height: 50,
-                              padding: const EdgeInsets.all(5),
-                              margin: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1, color: Colors.blue.shade200),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Center(
-                                child: Text('+/-',
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        color: Colors.green.shade400)),
-                              ),
-                            ),
-                          ),
+                          _buildPad('%'),
                           Expanded(
                             child: Container(
                               // color: Colors.amber.shade200,
@@ -195,7 +177,7 @@ class _MyAppState extends State<MyApp> {
                           _buildPad('4'),
                           _buildPad('5'),
                           _buildPad('6'),
-                          _buildPad('-'),
+                          _buildPad('-', fontSize: 34),
                         ],
                       ),
                       Row(

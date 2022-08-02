@@ -1,38 +1,9 @@
-// import 'dart:io';
-
-import 'package:calculator/keypad.dart';
 import 'package:flutter/material.dart';
-import 'theme.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // Provider(create: (){});
-  // GetIt.I.registerSingleton<Input>(Input());
-  // runApp(
-  //   MultiProvider(
-  //     providers: [
-  //       ChangeNotifierProvider(create: (_) => Input()),
-  //     ],
-  //     child:
   runApp(const MyApp());
-  //   ),
-  // );
 }
-
-double answer = 0;
-  TextEditingController _controller = TextEditingController();
-
-calculator() {
-  ContextModel cm = ContextModel();
-  Parser p = Parser();
-  Expression exp = p.parse(_controller.text);
-  double eval = exp.evaluate(EvaluationType.REAL, cm);
-  answer = eval;
-  return eval;
-}
-
-Color aa = Colors.white;
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -47,6 +18,18 @@ class _MyAppState extends State<MyApp> {
   Color dayclr = Colors.blue.shade600;
   Color nightclr = Colors.grey.shade600;
   bool removeInput = false;
+  double answer = 0;
+  TextEditingController _controller = TextEditingController();
+
+  calculator() {
+    ContextModel cm = ContextModel();
+    Parser p = Parser();
+    Expression exp = p.parse(_controller.text);
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+    answer = eval.toDouble();
+    return eval;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -112,29 +95,31 @@ class _MyAppState extends State<MyApp> {
                           Expanded(
                             child: Container(
                               // color: Colors.amber.shade200,
-                              width: 100,
-                              height: 50,
-                              padding: const EdgeInsets.all(5),
-                              margin: const EdgeInsets.all(10),
+                              // width: 50,
+                              // height: 50,
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.symmetric(vertical: 5),
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1, color: Colors.blue.shade200),
+                                  // border: Border.all(
+                                  //     width: 1, color: Colors.blue.shade200),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Center(
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
-                                      _controller.text = '';
+                                      _controller.clear();
+                                      answer = 0;
                                     });
                                   },
                                   style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateColor.resolveWith(
-                                              (states) => Colors.white)),
-                                  child: const Text(
-                                    'AC',
-                                    style: TextStyle(
-                                        fontSize: 30, color: Colors.black),
+                                      backgroundColor: MaterialStateColor
+                                          .resolveWith((states) =>
+                                              Color.fromARGB(255, 51, 47, 47))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Text('AC',
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.white)),
                                   ),
                                 ),
                               ),
@@ -162,19 +147,35 @@ class _MyAppState extends State<MyApp> {
                           Expanded(
                             child: Container(
                               // color: Colors.amber.shade200,
-                              width: 50,
-                              height: 50,
-                              padding: const EdgeInsets.all(5),
-                              margin: const EdgeInsets.all(10),
+                              // width: 50,
+                              // height: 50,
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.symmetric(vertical: 5),
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1, color: Colors.blue.shade200),
+                                  // border: Border.all(
+                                  //     width: 1, color: Colors.blue.shade200),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Center(
-                                child: Text('%',
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        color: Colors.green.shade400)),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      // var del = _controller.text.split('').removeLast().toString();
+                                      
+
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                      backgroundColor: MaterialStateColor
+                                          .resolveWith((states) =>
+                                              Color.fromARGB(255, 51, 47, 47))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Text('C',
+                                        style: TextStyle(
+                                            fontSize: 30,
+                                            color: Colors.red.shade900)),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -209,8 +210,8 @@ class _MyAppState extends State<MyApp> {
                         children: [
                           _buildPad('00',
                               fontSize: 20, vPadding: 16, hPadding: 8),
-                          _buildPad('.'),
                           _buildPad('0'),
+                          _buildPad('.'),
                           Expanded(
                             child: Container(
                               // color: Colors.amber.shade200,
@@ -294,7 +295,9 @@ class _MyAppState extends State<MyApp> {
                   border: OutlineInputBorder(borderSide: BorderSide.none)),
             ),
             Text(
-              answer.toString(),
+              answer.toString().length > 9
+                  ? answer.toStringAsExponential(1)
+                  : answer.toString(),
               textAlign: TextAlign.right,
               style: const TextStyle(
                 fontSize: 50,

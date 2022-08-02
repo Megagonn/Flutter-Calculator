@@ -20,17 +20,16 @@ void main() {
   // );
 }
 
-dynamic inp = '0';
-button(b) {
-  inp += b.toString();
-}
+dynamic inp = '';
+double answer = 0;
 
 calculator() {
   ContextModel cm = ContextModel();
   Parser p = Parser();
   Expression exp = p.parse(inp);
   double eval = exp.evaluate(EvaluationType.REAL, cm);
-  inp = eval.toString();
+  answer = eval;
+  return eval;
 }
 
 Color aa = Colors.white;
@@ -44,10 +43,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  TextEditingController _controller = TextEditingController();
   bool theme = true;
   Color dayclr = Colors.blue.shade600;
   Color nightclr = Colors.grey.shade600;
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -208,7 +208,8 @@ class _MyAppState extends State<MyApp> {
                       ),
                       Row(
                         children: [
-                          _buildPad('00', fontSize: 20),
+                          _buildPad('00',
+                              fontSize: 20, vPadding: 16, hPadding: 8),
                           _buildPad('.'),
                           _buildPad('0'),
                           Expanded(
@@ -273,24 +274,39 @@ class _MyAppState extends State<MyApp> {
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.baseline,
+          crossAxisAlignment: CrossAxisAlignment.end,
           textBaseline: TextBaseline.alphabetic,
           children: [
+            // Text(
+            //   inp,
+            //   // context.watch()<Input>().input,
+            //   textAlign: TextAlign.right,
+            //   style: const TextStyle(
+            //     fontSize: 50,
+            //   ),
+            // ),
+            TextField(
+              controller: _controller,
+              keyboardType: TextInputType.none,
+              textAlign: TextAlign.end,
+              style: TextStyle(fontSize: 30),
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(borderSide: BorderSide.none)),
+            ),
             Text(
-              inp,
-              // context.watch()<Input>().input,
+              answer.toString(),
               textAlign: TextAlign.right,
               style: const TextStyle(
                 fontSize: 50,
               ),
-            ),
+            )
           ],
         ),
       ),
     );
   }
 
-  _buildPad(label, {fontSize}) {
+  _buildPad(label, {fontSize, vPadding, hPadding}) {
     return Expanded(
       child: Container(
         // color: Colors.amber.shade200,
@@ -307,6 +323,7 @@ class _MyAppState extends State<MyApp> {
               // Input().notify(label);
               setState(() {
                 inp += label;
+                _controller.text = inp;
               });
               // widget.func;
               // notifyListeners();
@@ -315,54 +332,13 @@ class _MyAppState extends State<MyApp> {
                 backgroundColor: MaterialStateColor.resolveWith(
                     (states) => Color.fromARGB(255, 51, 47, 47))),
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: EdgeInsets.symmetric(
+                  vertical: vPadding ?? 12.0, horizontal: hPadding ?? 12),
               child: Text(label,
                   style: TextStyle(
                       fontSize: fontSize ?? 30, color: Colors.teal.shade400)),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class Display extends StatefulWidget {
-  const Display({Key? key}) : super(key: key);
-
-  @override
-  _DisplayState createState() => _DisplayState();
-}
-
-class _DisplayState extends State<Display> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      width: 600,
-      height: 230,
-      decoration: BoxDecoration(
-        // border: Border.all(
-        //   color: Colors.lightGreen,
-        //   width: 5,
-        //   style: BorderStyle.solid,
-        // ),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          textBaseline: TextBaseline.alphabetic,
-          children: [
-            Text(
-              inp,
-              textAlign: TextAlign.right,
-              style: const TextStyle(
-                fontSize: 50,
-              ),
-            ),
-          ],
         ),
       ),
     );

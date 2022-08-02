@@ -20,13 +20,13 @@ void main() {
   // );
 }
 
-dynamic inp = '';
 double answer = 0;
+  TextEditingController _controller = TextEditingController();
 
 calculator() {
   ContextModel cm = ContextModel();
   Parser p = Parser();
-  Expression exp = p.parse(inp);
+  Expression exp = p.parse(_controller.text);
   double eval = exp.evaluate(EvaluationType.REAL, cm);
   answer = eval;
   return eval;
@@ -43,11 +43,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  TextEditingController _controller = TextEditingController();
   bool theme = true;
   Color dayclr = Colors.blue.shade600;
   Color nightclr = Colors.grey.shade600;
-  
+  bool removeInput = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -125,7 +124,7 @@ class _MyAppState extends State<MyApp> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
-                                      inp = '';
+                                      _controller.text = '';
                                     });
                                   },
                                   style: ButtonStyle(
@@ -227,6 +226,7 @@ class _MyAppState extends State<MyApp> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
+                                      removeInput = true;
                                       calculator();
                                     });
                                   },
@@ -322,8 +322,15 @@ class _MyAppState extends State<MyApp> {
             onPressed: () {
               // Input().notify(label);
               setState(() {
-                inp += label;
-                _controller.text = inp;
+                if (!removeInput) {
+                  _controller.text += label;
+                  // _controller.text = inp;
+                } else {
+                  _controller.text = answer.toString() + label;
+                  //  _controller.text = inp;
+                  removeInput = false;
+                  answer = 0;
+                }
               });
               // widget.func;
               // notifyListeners();

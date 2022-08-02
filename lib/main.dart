@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme ? ThemeData.dark() : ThemeData.light(),
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
@@ -62,8 +63,9 @@ class _MyAppState extends State<MyApp> {
                               });
                             },
                             child: CircleAvatar(
+                              backgroundColor: !theme ? Color.fromARGB(255, 51, 47, 47) : null,
                                 child: Icon(Icons.wb_sunny_rounded,
-                                    color: dayclr)),
+                                    color: theme ? dayclr : nightclr)),
                           ),
                         ],
                       ),
